@@ -3,9 +3,17 @@
   "version": "1.0.0",
   "description": "Project Title: Must-Watch Telugu Web Series for Every YouTube Addict\r Project Overview:\r This project is a platform where users can log in and create a personalized list of must-watch Telugu web series on YouTube. The list will vary for each user, and they can add, update, or delete items.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "dev": "nodemon server .js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
 }
