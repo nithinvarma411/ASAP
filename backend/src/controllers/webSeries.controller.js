@@ -12,7 +12,7 @@ const addWebseries = async (req, res) => {
         return res.status(409).send({"message": "episodes cannot be less than 1"})
     }
 
-    if (genre.lenght < 1) {
+    if (genre.length < 1) {
         return res.status(409).send({"message": "genre is required"})
     }
 
