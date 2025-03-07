@@ -1,0 +1,29 @@
+meta {
+  name: add-webSeries
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/v1/WebSeries/add-webseries
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "name": "Manager neighbour aithe",
+      "channel": "Potlakaya",
+      "episodes": 6,
+      "genre": ["drama", "comedy", "family"],
+      "rating": 8.1,
+      "link": "https://www.youtube.com/playlist?list=PLDm1o4Oc96ZzfBG1xZH6WFBI9Apttaqej",
+      "description": "This series follows Krishna, an employee who’s perfected the art of skipping work and faking his presence at the office… until his manager, Ravi, moves in right next door.Now, Krishna elaborate leave excuses and proxy office entries are under constant threat of being exposed. As Ravi watches his every move from the neighboring apartment, a whirlwind of confusion and comedic mishaps unfold. With office drama, neighborly secrets, and a dose of everyday lies, can Krishna keep up the charade, or will Ravi catch him in the act?",
+      "cast": [
+          { "actor": "raviteja" },
+          { "actor": "shiva" },
+          {"actor": "krishna"}
+      ]
+  }
+  
+}
