@@ -1,13 +1,16 @@
-import {connect} from "mongoose";
+import { connect } from "mongoose";
+
+let isDBConnected = false;
 
 const connectDB = async () => {
     try {
-        await connect(process.env.MONGO_URI)
-        console.log("database connected successfully")
-        return
+        await connect(process.env.MONGO_URI);
+        console.log("Database connected successfully");
+        isDBConnected = true;
     } catch (error) {
-        console.error("error connecting database", error)
+        console.error("Error connecting to database:", error);
+        isDBConnected = false;
     }
-}
+};
 
-export default connectDB
+export { connectDB, isDBConnected };
