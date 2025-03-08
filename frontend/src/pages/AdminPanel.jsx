@@ -52,29 +52,16 @@ function AdminPanel() {
     }
   };
 
-  const handleAddSeries = () => {
-    const newSeries = {
-      name: "New Series",
-      channel: "New Channel",
-      episodes: 0,
-      genre: ["unknown"],
-      rating: 0,
-      link: "#",
-      description: "Newly added web series.",
-      cast: [{ actor: "Unknown" }],
-    };
-    setWebSeries([...webSeries, newSeries]);
-  };
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-600 to-blue-500 flex flex-col text-white">
-      {/* Header */}
       <header className="w-full bg-black bg-opacity-10 p-4 flex items-center justify-between shadow-md">
         <h1 className="text-lg font-semibold text-center flex-1">Admin Panel</h1>
         <div className="flex gap-4">
           <Link to="/home" className=" text-white pt-2.5">Home</Link>
           <button
-            onClick={handleAddSeries}
+            onClick={() => (navigate("/add-series"))}
             className="bg-yellow-400 text-black px-4 py-2 rounded-md hover:bg-yellow-500"
           >
             Add Series
@@ -82,13 +69,11 @@ function AdminPanel() {
         </div>
       </header>
 
-      {/* Web Series List */}
       <div className="p-6 flex flex-col items-center">
         <h1 className="text-4xl font-bold text-center mb-6">Manage Web Series</h1>
         <div className="w-full max-w-4xl">
           {webSeries.map((series, index) => (
             <div key={index} className="mb-6 bg-black bg-opacity-20 p-4 rounded-lg shadow-md">
-              {/* Web Series Details */}
               <h2 className="text-2xl font-semibold">{series.name}</h2>
               <p className="text-gray-300">{series.description}</p>
               <p className="mt-2"><strong>Channel:</strong> {series.channel}</p>
@@ -97,7 +82,6 @@ function AdminPanel() {
               <p><strong>Rating:</strong> {series.rating}/10</p>
               <p><strong>Cast:</strong> {series.cast.map((actor) => actor.actor).join(", ")}</p>
 
-              {/* Watch Link */}
               <a
                 href={series.link}
                 target="_blank"
@@ -107,7 +91,6 @@ function AdminPanel() {
                 Watch {series.name} on YouTube
               </a>
 
-              {/* Embedded YouTube Video */}
               <div className="mt-4 w-full aspect-video rounded-lg overflow-hidden shadow-lg">
                 <iframe
                   className="w-full h-full"
@@ -119,7 +102,6 @@ function AdminPanel() {
                 ></iframe>
               </div>
 
-              {/* Admin Controls */}
               <div className="mt-4 flex justify-between">
                 <button
                   onClick={() => handleUpdate(index)}

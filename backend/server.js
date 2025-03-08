@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
+import cors from 'cors'
 import { connectDB, isDBConnected } from "./src/db/db.js";
 
 const app = express();
@@ -14,6 +15,10 @@ app.get("/ping", (req, res) => {
 });
 
 app.use(express.json());
+app.use(cors({
+  origin: process.env.ORIGIN
+}));
+
 
 import webSeriesRouter from "./src/routes/webSeries.router.js";
 app.use("/api/v1/WebSeries", webSeriesRouter);
