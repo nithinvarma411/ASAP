@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
+  const navigate = useNavigate()
   return (
     <div>
       <div className="min-h-screen bg-gradient-to-r from-purple-600 to-blue-500 flex flex-col text-white">
@@ -23,7 +25,7 @@ function Home() {
               className="rounded-lg shadow-lg"
             />
           </div>
-          <button className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-yellow-500 transition-transform transform hover:scale-105">
+          <button className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-yellow-500 transition-transform transform hover:scale-105" onClick={() => (navigate("/watch"))}>
             Explore Now
           </button>
         </div>
