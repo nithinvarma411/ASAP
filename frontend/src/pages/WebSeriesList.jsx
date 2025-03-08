@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const fetchWebSeries = async () => {
-  return [
-    {
-      name: "Series 1",
-      channel: "Channel A",
-      episodes: 10,
-      genre: ["comedy", "drama"],
-      rating: 8.5,
-      link: "https://www.youtube.com/playlist?list=PL_T8fm8NU8ZHZLJ9TCRIZ0mEqpXQ0Nfik",
-      description: "A fun and entertaining web series.",
-      cast: [{ actor: "Actor 1" }, { actor: "Actor 2" }],
-    },
-    {
-      name: "Series 2",
-      channel: "Channel B",
-      episodes: 12,
-      genre: ["thriller"],
-      rating: 9.0,
-      link: "https://www.youtube.com/playlist?list=PLtK75qxsQaMLZ822YbEOdV4jZbAl8Lx92",
-      description: "An intense thriller series with a gripping storyline.",
-      cast: [{ actor: "Actor 3" }, { actor: "Actor 4" }],
-    },
-  ];
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/WebSeries/get-webseries`
+    );
+    console.log("Fetched Web Series:", response.data);
+    return Array.isArray(response.data) ? response.data : [];
+  } catch (error) {
+    console.error("Error fetching web series:", error);
+    return [];
+  }
 };
 
 function WebSeriesList() {
@@ -60,9 +49,11 @@ function WebSeriesList() {
     });
   };
 
-  const filteredWebSeries = webSeries.filter((series) =>
-    series.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredWebSeries = Array.isArray(webSeries)
+    ? webSeries.filter((series) =>
+        series.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-600 to-blue-500 flex flex-col text-white">
@@ -86,12 +77,12 @@ function WebSeriesList() {
           Discover Amazing Web Series
         </h1>
 
-        {/* Search Bar */}
+        
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full max-w-2xl p-2 mb-6 rounded-md text-black shadow-md placeholder-gray-700"
+          className="w-full max-w-2xl p-2 mb-6 rounded-md text-black shadow-md placeholder-gray-900"
           placeholder="Search for a web series..."
         />
 
@@ -116,7 +107,8 @@ function WebSeriesList() {
                 <strong>Rating:</strong> {series.rating}/10
               </p>
               <p>
-                <strong>Cast:</strong> {series.cast.map((actor) => actor.actor).join(", ")}
+                <strong>Cast:</strong>{" "}
+                {series.cast.map((actor) => actor.actor).join(", ")}
               </p>
 
               <a
