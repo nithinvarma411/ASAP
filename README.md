@@ -17,3 +17,5 @@ This project is a platform where users can log in and create a personalized list
 ## Why This Project:
 I chose this project because it's fun, relatable, and allows me to practice all the concepts from the course. Currently, I only want to allow users to add their favorite web series, but I can also expand it further so they can see the YouTube web series link directly on the website.
 
+## Frontend Deployed Link: https://asap-hazel.vercel.app/
+
