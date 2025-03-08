@@ -5,7 +5,7 @@ import axios from "axios";
 const fetchWebSeries = async () => {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/v1/WebSeries/get-webseries`
+      `${import.meta.env.VITE_BACKEND_URL}api/v1/WebSeries/get-webseries`
     );
     console.log("Fetched Web Series:", response.data);
     return Array.isArray(response.data) ? response.data : [];

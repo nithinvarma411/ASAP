@@ -15,7 +15,16 @@ const addWebSeries = async (req, res) => {
         return res.status(409).send({ "message": "Genre is required" });
     }
 
-    const newWebSeries = new WebSeries({ name, channel, episodes, genre, rating, link, description, cast });
+    // Ensure cast is an array of objects
+    const formattedCast = Array.isArray(cast)
+        ? cast.map(actor => (typeof actor === "string" ? { actor } : actor))
+        : [];
+
+    if (formattedCast.length === 0) {
+        return res.status(400).send({ "message": "Cast should be an array of actor names" });
+    }
+
+    const newWebSeries = new WebSeries({ name, channel, episodes, genre, rating, link, description, cast: formattedCast });
 
     try {
         await newWebSeries.save();
@@ -25,6 +34,7 @@ const addWebSeries = async (req, res) => {
         return res.status(500).send({ "message": "Internal Server Error" });
     }
 };
+
 
 const getAllWebSeries = async (req, res) => {
     try {
