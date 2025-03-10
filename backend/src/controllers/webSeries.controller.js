@@ -55,6 +55,8 @@ const updateWebSeries = async (req, res) => {
             return res.status(404).send({ "message": "Web series not found" });
         }
 
+        console.log(updatedWebSeries)
+
         return res.status(200).json({ "message": "Web series updated successfully", updatedWebSeries });
     } catch (error) {
         console.error("Error in updating web series", error);
