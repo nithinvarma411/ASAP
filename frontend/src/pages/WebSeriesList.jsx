@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -26,6 +27,7 @@ function WebSeriesList() {
   const [comments, setComments] = useState({});
   const [newComment, setNewComment] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate()
 
   useEffect(() => {
     const loadWebSeries = async () => {
@@ -55,6 +57,26 @@ function WebSeriesList() {
     });
   };
 
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}api/v1/WebSeries/logout`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      localStorage.removeItem("accessToken");
+      navigate("/login");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
   const filteredWebSeries = Array.isArray(webSeries)
     ? webSeries.filter((series) =>
         series.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -74,7 +96,7 @@ function WebSeriesList() {
           <Link to="/profile" className="hover:underline">
             Profile
           </Link>
-          <button className="hover:underline">Logout</button>
+          <button className="hover:underline" onClick={handleLogout}>Logout</button>
         </div>
       </header>
 
