@@ -22,7 +22,13 @@ const addWebSeries = async (req, res) => {
     if (formattedCast.length === 0) {
         return res.status(400).send({ "message": "Cast should be an array of actor names" });
     }
-    const newWebSeries = new WebSeries({ name, channel, episodes, genre, rating, link, description, cast: formattedCast });
+
+    if (!req.user || !req.user.id) {
+        return res.status(401).send({ "message": "Unauthorized: User ID required" });
+    }
+
+
+    const newWebSeries = new WebSeries({ name, channel, episodes, genre, rating, link, description, cast: formattedCast, created_by: req.user.id  });
     try {
         await newWebSeries.save();
         return res.status(201).send({ "message": "Web series added successfully" });

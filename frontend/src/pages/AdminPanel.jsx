@@ -4,8 +4,13 @@ import axios from "axios";
 
 const fetchWebSeries = async () => {
   try {
+    const token = localStorage.getItem("accessToken");
     const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}api/v1/WebSeries/get-webseries`
+      `${import.meta.env.VITE_BACKEND_URL}api/v1/WebSeries/get-webseries`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     return Array.isArray(response.data) ? response.data : [];
   } catch (error) {

@@ -15,8 +15,15 @@ const webSeriesSchema = new Schema({
     cast: [{
         actor: { type: String, required: true }
     }],
+    created_by: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     comments: [{
-        user: String,
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
         text: String,
         date: { type: Date, default: Date.now }
     }]
