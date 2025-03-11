@@ -42,12 +42,33 @@ function AddWebSeries() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}api/v1/WebSeries/add-webseries`, form);
+      const token = localStorage.getItem("accessToken");
+      console.log("token", token)
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}api/v1/WebSeries/add-webseries`,
+        form,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setForm({
+        name: "",
+        channel: "",
+        episodes: "",
+        genre: [],
+        rating: "",
+        link: "",
+        description: "",
+        cast: [""],
+      });
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong!");
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-600 to-blue-500 flex flex-col text-white">

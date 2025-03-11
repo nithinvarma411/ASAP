@@ -15,7 +15,6 @@ const addWebSeries = async (req, res) => {
         return res.status(409).send({ "message": "Genre is required" });
     }
 
-    // Ensure cast is an array of objects
     const formattedCast = Array.isArray(cast)
         ? cast.map(actor => (typeof actor === "string" ? { actor } : actor))
         : [];
@@ -24,8 +23,12 @@ const addWebSeries = async (req, res) => {
         return res.status(400).send({ "message": "Cast should be an array of actor names" });
     }
 
-    const newWebSeries = new WebSeries({ name, channel, episodes, genre, rating, link, description, cast: formattedCast });
+    if (!req.user || !req.user.id) {
+        return res.status(401).send({ "message": "Unauthorized: User ID required" });
+    }
 
+
+    const newWebSeries = new WebSeries({ name, channel, episodes, genre, rating, link, description, cast: formattedCast, created_by: req.user.id  });
     try {
         await newWebSeries.save();
         return res.status(201).send({ "message": "Web series added successfully" });
@@ -54,9 +57,7 @@ const updateWebSeries = async (req, res) => {
         if (!updatedWebSeries) {
             return res.status(404).send({ "message": "Web series not found" });
         }
-
         console.log(updatedWebSeries)
-
         return res.status(200).json({ "message": "Web series updated successfully", updatedWebSeries });
     } catch (error) {
         console.error("Error in updating web series", error);
@@ -71,7 +72,6 @@ const deleteWebSeries = async (req, res) => {
         if (!deletedWebSeries) {
             return res.status(404).send({ "message": "Web series not found" });
         }
-
         return res.status(200).json({ "message": "Web series deleted successfully" });
     } catch (error) {
         console.error("Error in deleting web series", error);
