@@ -11,7 +11,7 @@ function AdminForm() {
     if (pin === "1234") {
       setMessage("Access Granted ✅");
       setTimeout(() => {
-        navigate("/admin-profile"); // Redirect after 2 seconds
+        navigate("/admin-profile"); 
       }, 1000);
     } else {
       setMessage("Incorrect PIN ❌");

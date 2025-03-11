@@ -90,7 +90,7 @@ const login = async (req, res) => {
         secure: process.env.NODE_ENV === "production",
     });
     res.cookie("userName", loggedInUser.userName, {
-        httpOnly: false, // Allow access from the client-side if needed
+        httpOnly: false,
         secure: process.env.NODE_ENV === "production",
     });
 
